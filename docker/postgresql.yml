@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  db:
+    image: postgres
+    restart: always 
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ../data/burgerbox.db:/var/lib/postgresql/data
+      - ../src/main/resources/db/init/001_init.sql:/docker-entrypoint-initdb.d/001_init.sql
+    ports:
+      - '7575:5432'
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
